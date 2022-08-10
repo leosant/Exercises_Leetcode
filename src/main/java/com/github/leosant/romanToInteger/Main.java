@@ -4,7 +4,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        String s = "MCMXCIV";
+        String s = "MMCDXXV";
 
         System.out.println("Algarismos romanos: " + romanToInt(s));
     }
@@ -12,32 +12,22 @@ public class Main {
     public static int romanToInt(String letterRoman) {
 
         int totalRoman = 0;
+        int i = 0;
 
-        int i = 1;
-        int lRomanRepeater = 1;
-        while (i <= letterRoman.length()) {
-            int countInversion = letterRoman.length() - i;
-            int letterRomanActual = switchAphalbetRoman(letterRoman.charAt(countInversion));
+        while (i < letterRoman.length()) {
 
-
+            int letterRomanActual = switchAphalbetRoman(letterRoman.charAt(i));
 
             if (intHasNext(i, letterRoman.length())) {
-                int letterRomanNext = switchAphalbetRoman(letterRoman.charAt(countInversion-1));
+                int letterRomanNext = switchAphalbetRoman(letterRoman.charAt(i+1));
 
-                if (letterRomanActual > letterRomanNext) {
-                    totalRoman += letterRomanActual - letterRomanNext;
+                if (letterRomanActual < letterRomanNext) {
+
+                    totalRoman += letterRomanNext - letterRomanActual;
                     i++;
                 }
-                else if (letterRomanActual < letterRomanNext) {
-
-                    totalRoman += letterRomanActual + letterRomanNext;
-                }
                 else {
-                    lRomanRepeater++;
                     totalRoman += letterRomanActual;
-                    if (lRomanRepeater > 3) {
-                        throw new IllegalArgumentException("Max of number roman repeater");
-                    }
                 }
             }
             else {
@@ -75,6 +65,6 @@ public class Main {
      * method evita que lanca erro arrayindexofbout
      */
     public static boolean intHasNext(int positionActual, int arraySize) {
-        return positionActual < arraySize;
+        return positionActual < (arraySize-1);
     }
 }
