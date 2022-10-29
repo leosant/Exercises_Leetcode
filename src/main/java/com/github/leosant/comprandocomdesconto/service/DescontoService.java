@@ -1,6 +1,6 @@
 package com.github.leosant.comprandocomdesconto.service;
 
-import com.github.leosant.comprandocomdesconto.entity.fields.Item;
+import com.github.leosant.comprandocomdesconto.entity.Produto;
 
 public class DescontoService implements IDesconto{
 
@@ -9,14 +9,12 @@ public class DescontoService implements IDesconto{
 
 
   @Override
-  public double getDesconto(Item item) {
-    var descontoFixo = calcularDescontoFixo(item.getTotalPreco());
-    var descontoVariavel = calcularDescontoVariavel(item.getTotalPreco(), item.getQuantidade());
-    var totalDescontos = calcularTodosOsDescontos(descontoFixo, descontoVariavel);
-    return realizarDescontos(item.getTotalPreco(), totalDescontos);
+  public double getDesconto(Produto produto) {
+    var descontoFixo = calcularDescontoFixo(produto.getTotalPreco());
+    var descontoVariavel = calcularDescontoVariavel(produto.getTotalPreco(), produto.getQuantidade());
+    var totalDescontos = calcularTodosDescontos(descontoFixo, descontoVariavel);
+    return realizarDescontos(produto.getTotalPreco(), totalDescontos);
   }
-
-
 
   @Override
   public double realizarDescontos(double preco, double totalDesconto) {
@@ -34,7 +32,7 @@ public class DescontoService implements IDesconto{
   }
 
   @Override
-  public double calcularTodosOsDescontos(double descontoFixo, double descontoVariavel) {
+  public double calcularTodosDescontos(double descontoFixo, double descontoVariavel) {
     return descontoFixo + descontoVariavel;
   }
 }
