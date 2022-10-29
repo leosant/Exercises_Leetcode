@@ -17,11 +17,10 @@ public class DescontoServiceTest {
     descontoService = new DescontoService();
   }
 
-  @Test
+  @Test(expected = NullPointerException.class)
   public void naoDeveTerProdutoCadastrado() {
     var produto = ProdutoMother.produtoNulo();
     var retorno = descontoService.getDesconto(produto);
-    assertEquals(20.00, retorno, 0.01);
   }
 
   @Test
